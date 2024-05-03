@@ -1,0 +1,23 @@
+<div class="topbar">
+<label><Input @type="checkbox" @checked={{this.afterStagesRFC}} {{on "click" this.toggleAfterStages}} />RFCs after release of Stages RFC</label>
+<label><Input @type="checkbox" @checked={{this.onlyOpen}} {{on "click" this.toggleOpen}}/>Only Open RFCs</label>
+<label><Input @type="checkbox" @checked={{this.proposed}} {{on "click" this.toggleProposed}}/>Proposed</label>
+<label><Input @type="checkbox" @checked={{this.accepted}} {{on "click" this.toggleAccepted}}/>Accepted</label>
+<label><Input @type="checkbox" @checked={{this.ready}} {{on "click" this.toggleReady}}/>Ready for Release</label>
+<label><Input @type="checkbox" @checked={{this.released}} {{on "click" this.toggleReleased}}/>Released</label>
+<label><Input @type="checkbox" @checked={{this.recommended}} {{on "click" this.toggleRecommended}}/>Recommended</label>
+<button type="button" {{on 'click' this.scrollTop}}>Scroll Top</button>
+<h1>{{this.rfcs.length}}</h1>
+</div>
+<ul>
+  <li>Days untill proposed: {{this.propossalAverage}}</li>
+  <li>Days untill accepted: {{this.acceptedAverage}}</li>
+  <li>Days untill Ready for Release: {{this.readyAverage}}</li>
+  <li>Days untill Released: {{this.releasedAverage}}</li>
+  <li>Days untill Recommended: {{this.recommendedAverage}}</li>
+</ul>
+<ul id="rfclist">
+  {{#each this.rfcs as | rfc|}}
+    <Rfc @rfc={{rfc}} />
+  {{/each}}
+</ul>

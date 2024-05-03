@@ -1,1 +1,36 @@
-/* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
+.topbar {
+  position: sticky;
+  top: 0;
+  background-color: white;
+}
+
+.stage {
+  font-family: monospace;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.closed {
+  background-color: #6A707A;
+  color: white;
+}
+
+.proposed {
+  background-color: #DFFDFF;
+}
+
+.accepted {
+  background-color: #C7F9DE;
+}
+
+.release {
+  background-color: #FFFAD6;
+}
+
+.released {
+  background-color: #D5CBFF;
+}
+
+.recommended {
+  background-color: #8BE998;
+}
