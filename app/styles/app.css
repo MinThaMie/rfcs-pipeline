@@ -1,7 +1,11 @@
+html {
+  background-color: #e0efde;
+}
+
 .topbar {
   position: sticky;
   top: 0;
-  background-color: white;
+  background-color: #e0efde;
 }
 
 .stage {
@@ -10,27 +14,44 @@
   border-radius: 8px;
 }
 
+.kanban {
+  display: grid;
+  grid-template-columns: repeat(6, 16%);
+  gap: 5px;
+}
+
+.rfc {
+  border-radius: 8px;
+  background-color: white;
+  padding: 8px;
+}
+
 .closed {
-  background-color: #6A707A;
+  background-color: #6a707a;
   color: white;
 }
 
 .proposed {
-  background-color: #DFFDFF;
+  background-color: #dffdff;
 }
 
 .accepted {
-  background-color: #C7F9DE;
+  background-color: #c7f9de;
 }
 
 .release {
-  background-color: #FFFAD6;
+  background-color: #fffad6;
 }
 
 .released {
-  background-color: #D5CBFF;
+  background-color: #d5cbff;
 }
 
 .recommended {
-  background-color: #8BE998;
+  background-color: #8be998;
+}
+
+.github-pic {
+  height: 60px;
+  width: 60px;
 }

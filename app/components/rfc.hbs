@@ -1,9 +1,14 @@
-<li>
-<h2>#{{@rfc.number}} {{@rfc.title}} <span class="stage {{@rfc.currentStage}}">{{@rfc.currentStage}}</span></h2>
+<div class="rfc">
+<h2><a href={{@rfc.url}} rel="noopener noreferrer" target="_blank">#{{@rfc.number}} {{@rfc.title}}</a><span class="stage {{@rfc.currentStage}}">{{@rfc.currentStage}}</span></h2>
 <p>{{this.timeOpen}}</p>
 <ul>
+{{#each @rfc.assignees as | person |}}
+<li>{{person.login}} <img class="github-pic" alt="Profile" src={{person.avatarUrl}}/></li>
+{{/each}}
+</ul>
+<ul>
 {{#each @rfc.connected as |connected|}}
-<li>{{connected.number}} - {{connected.title}}</li>
+<li><a href={{connected.url}} rel="noopener noreferrer" target="_blank">{{connected.number}} - {{connected.title}}</a></li>
 {{/each}}
 </ul>
 {{!-- <ul>
@@ -12,8 +17,8 @@
   {{/each}}
 </ul> --}}
 <ul>
- {{#each-in @rfc.stages as |stage days|}}
+ {{#each-in @rfc.stageDuration as |stage days|}}
   <li>{{stage}}: {{days}}</li>
   {{/each-in}}
 </ul>
-</li>
+</div>

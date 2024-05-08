@@ -1,0 +1,4 @@
+<label><Input @type="checkbox" @checked={{this.onlyOpen}} {{on "click" this.toggleOpen}}/>Only Open RFCs</label>
+{{#each (array this.data) as |data|}}
+  <svg width='90vw' height='90vh' {{d3-treemap data=data}}></svg>
+{{/each}}

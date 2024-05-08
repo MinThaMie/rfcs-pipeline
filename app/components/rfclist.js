@@ -3,9 +3,11 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
 export default class RfclistComponent extends Component {
+  //TODO: make the default the one where only after the stages RFC
   @tracked rfcs = this.args.rfcs;
   @tracked afterStagesRFC = false;
   @tracked proposed = false;
+  @tracked exploring = false;
   @tracked accepted = false;
   @tracked ready = false;
   @tracked released = false;
@@ -13,46 +15,109 @@ export default class RfclistComponent extends Component {
   @tracked onlyOpen = false;
 
   get propossalAverage() {
-    let rfcs = this.args.rfcs
-      .filter((rfc) => new Date(rfc.createdAt) > new Date(2022, 11, 22))
-      .filter((rfc) => rfc.currentStage == 'proposed');
+    let propDays = this.args.rfcs
+      .filter(
+        (rfc) =>
+          new Date(rfc.createdAt) > new Date(2022, 11, 22) &&
+          rfc.currentStage !== 'closed',
+      )
+      .map((rfc) => rfc.stageDuration.proposed);
+    console.log(propDays);
     return Math.round(
-      rfcs.reduce((acc, cur) => acc + cur.stages.acceptedDays, 0) / rfcs.length,
+      propDays.reduce((acc, cur) => acc + cur, 0) / propDays.length,
+    );
+  }
+
+  get exploringAverage() {
+    let exploringDays = this.args.rfcs
+      .filter(
+        (rfc) =>
+          new Date(rfc.createdAt) > new Date(2022, 11, 22) &&
+          rfc.currentStage !== 'closed' &&
+          rfc.stageDuration.exploring !== null,
+      )
+      .map((rfc) => rfc.stageDuration.exploring);
+    return Math.round(
+      exploringDays.reduce((acc, cur) => acc + cur, 0) / exploringDays.length,
     );
   }
 
   get acceptedAverage() {
-    let rfcs = this.args.rfcs
-      .filter((rfc) => new Date(rfc.createdAt) > new Date(2022, 11, 22))
-      .filter((rfc) => rfc.currentStage == 'accepted');
+    let acceptedDays = this.args.rfcs
+      .filter(
+        (rfc) =>
+          new Date(rfc.createdAt) > new Date(2022, 11, 22) &&
+          rfc.currentStage !== 'closed' &&
+          rfc.stageDuration.accepted !== null,
+      )
+      .map((rfc) => rfc.stageDuration.accepted);
+    console.log(acceptedDays);
     return Math.round(
-      rfcs.reduce((acc, cur) => acc + cur.stages.acceptedDays, 0) / rfcs.length,
+      acceptedDays.reduce((acc, cur) => acc + cur, 0) / acceptedDays.length,
     );
   }
   get readyAverage() {
-    let rfcs = this.args.rfcs
-      .filter((rfc) => new Date(rfc.createdAt) > new Date(2022, 11, 22))
-      .filter((rfc) => rfc.currentStage == 'ready');
+    let releaseDays = this.args.rfcs
+      .filter(
+        (rfc) =>
+          new Date(rfc.createdAt) > new Date(2022, 11, 22) &&
+          rfc.currentStage !== 'closed' &&
+          rfc.stageDuration.release !== null,
+      )
+      .map((rfc) => rfc.stageDuration.release);
+    console.log(releaseDays);
+
     return Math.round(
-      rfcs.reduce((acc, cur) => acc + cur.stages.releaseDays, 0) / rfcs.length,
+      releaseDays.reduce((acc, cur) => acc + cur, 0) / releaseDays.length,
     );
   }
   get releasedAverage() {
-    let rfcs = this.args.rfcs
-      .filter((rfc) => new Date(rfc.createdAt) > new Date(2022, 11, 22))
-      .filter((rfc) => rfc.currentStage == 'released');
+    let releasedDays = this.args.rfcs
+      .filter(
+        (rfc) =>
+          new Date(rfc.createdAt) > new Date(2022, 11, 22) &&
+          rfc.currentStage !== 'closed' &&
+          rfc.stageDuration.released !== null,
+      )
+      .map((rfc) => rfc.stageDuration.released);
+    console.log(releasedDays);
     return Math.round(
-      rfcs.reduce((acc, cur) => acc + cur.stages.releasedDays, 0) / rfcs.length,
+      releasedDays.reduce((acc, cur) => acc + cur, 0) / releasedDays.length,
     );
   }
   get recommendedAverage() {
-    let rfcs = this.args.rfcs
-      .filter((rfc) => new Date(rfc.createdAt) > new Date(2022, 11, 22))
-      .filter((rfc) => rfc.currentStage == 'recommended');
+    let recommendedDays = this.args.rfcs
+      .filter(
+        (rfc) =>
+          new Date(rfc.createdAt) > new Date(2022, 11, 22) &&
+          rfc.currentStage !== 'closed' &&
+          rfc.stageDuration.recommended !== null,
+      )
+      .map((rfc) => rfc.stageDuration.recommended);
+    console.log(recommendedDays);
     return Math.round(
-      rfcs.reduce((acc, cur) => acc + cur.stages.recommendedDays, 0) /
-        rfcs.length,
+      recommendedDays.reduce((acc, cur) => acc + cur, 0) /
+        recommendedDays.length,
     );
+  }
+
+  get proposedRFCs() {
+    return this.rfcs.filter((rfc) => rfc.currentStage == 'proposed');
+  }
+  get exploringRFCs() {
+    return this.rfcs.filter((rfc) => rfc.currentStage == 'exploring');
+  }
+  get acceptedRFCs() {
+    return this.rfcs.filter((rfc) => rfc.currentStage == 'accepted');
+  }
+  get readyRFCs() {
+    return this.rfcs.filter((rfc) => rfc.currentStage == 'release');
+  }
+  get releasedRFCs() {
+    return this.rfcs.filter((rfc) => rfc.currentStage == 'released');
+  }
+  get recommendedRFCs() {
+    return this.rfcs.filter((rfc) => rfc.currentStage == 'recommended');
   }
 
   checkOpeness(rfc) {
@@ -63,6 +128,7 @@ export default class RfclistComponent extends Component {
     }
   }
 
+  //TODO: update the stages filters to make more sense :)
   updateRFClist() {
     let rfcs = [...this.args.rfcs];
     if (this.onlyOpen) {
@@ -79,24 +145,26 @@ export default class RfclistComponent extends Component {
       rfcs = rfcs.filter((rfc) => rfc.mergedAt == null);
     }
     if (this.accepted) {
-      rfcs = rfcs.filter((rfc) => rfc.stages.acceptedDays >= 0);
+      rfcs = rfcs.filter((rfc) => rfc.stageDuration.accepted >= 0);
     }
     if (this.ready) {
       rfcs = rfcs.filter(
-        (rfc) => rfc.stages.releaseDays >= 0 && rfc.stages.releaseDays !== null,
+        (rfc) =>
+          rfc.stageDuration.release >= 0 && rfc.stageDuration.release !== null,
       );
     }
     if (this.released) {
       rfcs = rfcs.filter(
         (rfc) =>
-          rfc.stages.releasedDays >= 0 && rfc.stages.releasedDays !== null,
+          rfc.stageDuration.released >= 0 &&
+          rfc.stageDuration.released !== null,
       );
     }
     if (this.recommended) {
       rfcs = rfcs.filter(
         (rfc) =>
-          rfc.stages.recommendedDays >= 0 &&
-          rfc.stages.recommendedDays !== null,
+          rfc.stageDuration.recommended >= 0 &&
+          rfc.stageDuration.recommended !== null,
       );
     }
     this.rfcs = rfcs;

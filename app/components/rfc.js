@@ -47,7 +47,7 @@ export default class RfcComponent extends Component {
         ),
       )}`;
     } else {
-      return `In this stage for ${this.getFormatedStringFromDays(
+      return `In this stage for  ${this.getFormatedStringFromDays(
         Math.round(
           (new Date() - new Date(this.args.rfc.createdAt)) /
             (1000 * 60 * 60 * 24),

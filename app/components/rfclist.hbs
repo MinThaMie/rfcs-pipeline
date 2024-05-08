@@ -10,12 +10,52 @@
 <h1>{{this.rfcs.length}}</h1>
 </div>
 <ul>
-  <li>Days untill proposed: {{this.propossalAverage}}</li>
-  <li>Days untill accepted: {{this.acceptedAverage}}</li>
-  <li>Days untill Ready for Release: {{this.readyAverage}}</li>
-  <li>Days untill Released: {{this.releasedAverage}}</li>
-  <li>Days untill Recommended: {{this.recommendedAverage}}</li>
+  <li>Days in proposed: {{this.propossalAverage}}</li>
+  <li>Days in exploring: {{this.exploringAverage}}</li>
+  <li>Days in accepted: {{this.acceptedAverage}}</li>
+  <li>Days in Ready for Release: {{this.readyAverage}}</li>
+  <li>Days in Released: {{this.releasedAverage}}</li>
 </ul>
+
+<div class="kanban">
+  <div class="kanban-row">
+    <h2>Proposed</h2>
+    {{#each this.proposedRFCs as |rfc|}}
+        <Rfc @rfc={{rfc}} />
+    {{/each}}
+  </div>
+  <div class="kanban-row">
+    <h2>Exploring</h2>
+    {{#each this.exploringRFCs as |rfc|}}
+        <Rfc @rfc={{rfc}} />
+    {{/each}}
+  </div>
+  <div class="kanban-row">
+    <h2>Accepted</h2>
+    {{#each this.acceptedRFCs as |rfc|}}
+        <Rfc @rfc={{rfc}} />
+    {{/each}}
+  </div>
+  <div class="kanban-row">
+    <h2>Ready for Release</h2>
+    {{#each this.readyRFCs as |rfc|}}
+        <Rfc @rfc={{rfc}} />
+    {{/each}}
+  </div>
+  <div class="kanban-row">
+    <h2>Released</h2>
+    {{#each this.releasedRFCs as |rfc|}}
+        <Rfc @rfc={{rfc}} />
+    {{/each}}
+  </div>
+  <div class="kanban-row">
+    <h2>Recommended</h2>
+    {{#each this.recommendedRFCs as |rfc|}}
+        <Rfc @rfc={{rfc}} />
+    {{/each}}
+  </div>
+</div>
+<h1>--------</h1>
 <ul id="rfclist">
   {{#each this.rfcs as | rfc|}}
     <Rfc @rfc={{rfc}} />
