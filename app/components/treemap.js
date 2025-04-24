@@ -125,7 +125,7 @@ export default class TreemapComponent extends Component {
     }
   }
 
-  updateData(){
+  updateData() {
     this.data = {
       name: 'RFC stages',
       children: [
@@ -150,14 +150,14 @@ export default class TreemapComponent extends Component {
           children: this.releasedChildren,
         },
       ],
-    }
+    };
   }
 
   @action
   toggleOpen() {
     this.onlyOpen = !this.onlyOpen;
     if (this.onlyOpen) {
-      console.log("Open")
+      console.log('Open');
       this.rfcs = this.rfcs.filter(
         (rfc) => (!rfc.merged && !rfc.closed) || this.checkOpeness(rfc),
       );

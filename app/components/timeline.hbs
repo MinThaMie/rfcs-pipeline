@@ -1,0 +1,46 @@
+<button type='button' {{on 'click' this.startTimeline}}>Start timeline</button>
+<h2>Time = {{this.time}}</h2>
+<div class="kanban">
+  <div class="kanban-row">
+    <h3>Proposed</h3>
+
+{{#each this.proposed as |rfc|}}
+  {{rfc.num}}
+{{/each}}
+</div>
+  <div class="kanban-row">
+<h3>Exploring</h3>
+
+{{#each this.exploring as |rfc|}}
+  {{rfc.num}}
+{{/each}}
+</div>
+  <div class="kanban-row">
+<h3>Accepted</h3>
+{{#each this.accepted as |rfc|}}
+  {{rfc.num}}
+{{/each}}
+</div>
+  <div class="kanban-row">
+<h3>Ready for Release</h3>
+
+{{#each this.ready as |rfc|}}
+  {{rfc.num}}
+{{/each}}
+</div>
+  <div class="kanban-row">
+<h3>Released</h3>
+
+{{#each this.released as |rfc|}}
+  {{rfc.num}}
+{{/each}}
+  </div>
+    <div class="kanban-row">
+<h3>Recommended</h3>
+<div>
+{{#each this.recommended as |rfc|}}
+  {{rfc.num}}
+{{/each}}
+</div>
+</div>
+</div>
