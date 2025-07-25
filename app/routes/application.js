@@ -106,7 +106,7 @@ export default class ApplicationRoute extends Route {
     const rfcsFile = await fetch('data.json');
     const rfcs = await rfcsFile.json();
     return {
-      rfcs: this.condenseRFCs(rfcs.sort((a, b) => a.number > b.number)),
+      rfcs: this.condenseRFCs(rfcs.sort((a, b) => a.createdAt.localeCompare(b.createdAt))),
     };
   }
 }
