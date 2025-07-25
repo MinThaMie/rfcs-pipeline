@@ -21,7 +21,7 @@
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
     "start": "ember serve",
-    "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
+    "test": "concurrently \"npm:test:*\" --names \"lint,test:\"",
     "test:ember": "ember test"
   },
   "devDependencies": {
@@ -80,5 +80,6 @@
   "dependencies": {
     "d3": "^7.9.0",
     "ember-concurrency": "^4.0.2"
-  }
+  },
+  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad"
 }

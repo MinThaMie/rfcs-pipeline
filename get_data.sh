@@ -43,4 +43,4 @@ gh api graphql --paginate -f query='query ($endCursor:String) {
       }
     }
   }
-}' | jq '.data.repository.pullRequests.nodes[]' | jq --slurp . > data.json
+}' | jq '.data.repository.pullRequests.nodes[]' | jq --slurp . > public/data.json
